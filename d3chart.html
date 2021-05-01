@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Charts</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="assets/js/d3js/d3.js"></script>
+    <script src="assets/js/d3js/d3-scale-chromatic.v1.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <a class="navbar-brand" href="#">Charts Comparision</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">High Chart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="googlechart.html">Google Chart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="chartjs.html">Chart JS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="amchart.html">AM Chart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="d3chart.html">D3 Chart</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Comparison Chart
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="comparisonChart.html">Response Time</a>
+              <a class="dropdown-item" href="loadTestChart.html">Load Test</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container" style="margin-top: 30px">
+      <div class="row">
+        <div class="col-6">
+          <h3>Line Chart</h3>
+          <figure class="d3charts-figure">
+            <svg
+              id="lineChartSvg"
+              style="width: 550px; height: 400px; margin: 0 auto; padding: 20px"
+            ></svg>
+          </figure>
+        </div>
+        <div class="col-6">
+          <h3>Bar Chart</h3>
+          <figure class="d3charts-figure">
+            <svg
+              id="barChartSvg"
+              style="width: 550px; height: 400px; margin: 0 auto; padding: 20px"
+            ></svg>
+          </figure>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <h3>Pie Chart</h3>
+          <figure class="d3charts-figure">
+            <svg
+              id="pieChartSvg"
+              style="width: 550px; height: 400px; margin: 0 auto; padding: 20px"
+            ></svg>
+          </figure>
+        </div>
+        <div class="col-6">
+          <h3>Scatter Chart</h3>
+          <figure class="d3charts-figure">
+            <svg
+              id="doughnutChartSvg"
+              style="width: 550px; height: 400px; margin: 0 auto; padding: 20px"
+            ></svg>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Line Chart
+      // 2. Use the margin convention practice
+      var margin = { top: 20, right: 20, bottom: 80, left: 25 },
+        width = 550 - margin.left - margin.right, // Use the window's width
+        height = 400 - margin.top - margin.bottom; // Use the window's height
+
+        
+        var datesArray = ["1/20/2005","2/17/2005","3/9/2005","5/1/2005","5/31/2005","1/31/2005","2/23/2005","3/17/2005","4/1/2005","5/6/2005","1/20/2005","2/17/2005","3/9/2005","5/1/2005","5/31/2005","1/6/2005","2/3/2005","3/3/2005","5/17/2005","1/23/2005","2/17/2005","3/17/2005","5/5/2005","1/26/2005","2/17/2005","5/5/2005","1/6/2005","2/8/2005","3/3/2005","5/17/2005","1/26/2005","2/17/2005","3/23/2005","5/5/2005","1/6/2005","2/9/2005","3/3/2005","5/17/2005","1/6/2005","2/9/2005","3/3/2005","4/14/2005","5/17/2005","1/7/2005","2/9/2005","3/4/2005","4/15/2005","5/17/2005","1/12/2005","2/10/2005","4/22/2005","5/17/2005","1/6/2005","2/9/2005","3/3/2005","4/14/2005","5/17/2005","1/10/2005","2/9/2005","3/4/2005","4/15/2005","5/17/2005","1/23/2005","2/17/2005","5/3/2005","5/31/2005","1/10/2005","2/10/2005","4/22/2005","5/17/2005","1/10/2005","1/20/2005","2/9/2005","2/22/2005","3/15/2005","4/14/2005","5/3/2005","5/17/2005","5/31/2005","1/6/2005","2/10/2005","3/4/2005","1/6/2005","2/10/2005","3/4/2005","1/12/2005","2/10/2005","4/15/2005","5/17/2005","1/26/2005","2/22/2005","3/15/2005","5/5/2005","1/6/2005","2/10/2005","3/4/2005","1/12/2005","2/16/2005","4/22/2005","5/29/2005","1/12/2005","2/16/2005","4/22/2005","5/29/2005","1/23/2005","2/22/2005","3/15/2005","5/3/2005","5/31/2005","1/12/2005","2/10/2005","4/22/2005","5/29/2005","1/19/2005","2/16/2005","4/22/2005","5/29/2005","1/23/2005","2/22/2005","3/15/2005","5/3/2005","5/31/2005","1/19/2005","2/16/2005","4/22/2005","5/29/2005","1/12/2005","2/10/2005","3/4/2005","4/14/2005","5/17/2005","1/19/2005","2/16/2005","4/22/2005","5/29/2005","1/6/2005","2/10/2005","3/4/2005","5/17/2005","1/19/2005","2/16/2005","4/22/2005","5/29/2005","1/6/2005","2/10/2005","3/4/2005","4/14/2005","5/17/2005","1/23/2005","2/22/2005","3/15/2005","5/3/2005","1/6/2005","2/10/2005","3/4/2005","1/23/2005","2/17/2005","5/1/2005","5/31/2005"]
+        var dataArray = [4514.92,8254.8,2416.56,4140.23,12001,4046.25,4846.7,3370.56,9661.44,2764.88,2297.05,6231.54,1735.3,4427.73,5894.94,2817.87,3420,2575.04,1961.28,3560.64,3823.64,2280.96,8677.8,5862,4071.85,8236.75,3288.82,3987.2,1809.5,1092.2,5941.5,3241.9,6109.29,3387.78,2775.08,1627.92,2529.36,3065.78,4068.7,5182,5243.79,9048.16,3832.64,2611.8,5895.05,3375.72,8374.69,4464.24,2758.7,1449.76,7048.14,5202.94,3686.54,2100.56,3881.78,4509.12,3273.27,4207.84,4352.76,1463.7,7169.28,4594.76,2602.25,2200,6712.93,5318.04,6144.6,5127.2,6386.16,7695.6,6275.72,1534.95,7264.53,6869.05,3353.02,8289.05,11887.8,5926.9,3793.16,2773.8,2464,5491.6,4142.64,4149.07,7397,4808.38,2266.56,10468.9,5589.14,7031.52,5340.9,6376.58,6896.75,1629.04,3289.86,6862.94,3751,4536,4421.34,2078.28,1267.77,3441.82,1987.18,3880.2,2431.75,2018.72,1558.99,1104.6,2575.1,1463,3970.56,2576,2233.69,4107.2,1350,7182,3933.93,5545.8,6089.6,1789.4,1082.1,1030.44,4223.13,1596.76,5820.35,5296.5,5018.4,5856.85,4894.73,2094.32,640.05,3662.52,3478.64,1057.29,3385.9,2447.76,1910.84,2430.64,2896.3,1991.6,3953.18,3729.39,2617.16,2931.98,1757.91,6763.05,11739.7,9240,1408.96,1972.11,5207.75,4253.2,5154.41,4894.17,2472.6,4301.34,1864.56,3576.8,3722.32]
+
+        var sortedArray = datesArray.sort((a,b) => new Date(a) - new Date(b))
+
+      // The number of datapoints
+      var n = sortedArray.length;
+      // 5. X scale will use the index of our data
+      var xScale = d3
+        .scaleLinear()
+        .domain([0, n - 1]) // input
+        .range([0, 450]); // output
+
+      // 6. Y scale will use the randomly generate number
+      var yScale = d3
+        .scaleLinear()
+        .domain([0, 1]) // input
+        .range([300, 0]); // output
+
+      // 7. d3's line generator
+      var line = d3
+        .line()
+        .x(function (d, i) {
+          return xScale(i);
+        }) // set the x values for the line generator
+        .y(function (d) {
+          return yScale(d.y);
+        }) // set the y values for the line generator
+        .curve(d3.curveMonotoneX); // apply smoothing to the line
+
+      // 8. An array of objects of length N. Each object has key -> value pair, the key being "y" and the value is a random number
+      var dataset = d3.range(n).map(function (d) {
+        return { y: d3.randomUniform(1)() };
+      });
+
+      // 1. Add the SVG to the page and employ #2
+      var svg = d3
+        .select("#lineChartSvg")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      // 3. Call the x axis in a group tag
+      svg
+        .append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(xScale)); // Create an axis component with d3.axisBottom
+
+      // 4. Call the y axis in a group tag
+      svg.append("g").attr("class", "y axis").call(d3.axisLeft(yScale)); // Create an axis component with d3.axisLeft
+
+      // 9. Append the path, bind the data, and call the line generator
+      svg
+        .append("path")
+        .datum(dataset) // 10. Binds data to the line
+        .attr("class", "line") // Assign a class for styling
+        .attr("d", line); // 11. Calls the line generator
+
+      // 12. Appends a circle for each datapoint
+      svg
+        .selectAll(".dot")
+        .data(dataset)
+        .enter()
+        .append("circle") // Uses the enter().append() method
+        .attr("class", "dot") // Assign a class for styling
+        .attr("cx", function (d, i) {
+          return xScale(i);
+        })
+        .attr("cy", function (d) {
+          return yScale(d.y);
+        })
+        .attr("r", 5);
+
+
+
+
+      // Bar Chart
+        const sample = [
+          {
+            language: 'Jan',
+            value: 11,
+            value2: 38,
+          },
+          {
+            language: 'Feb',
+            value: 13,
+          },
+          {
+            language: 'Mar',
+            value: 13,
+          },
+          {
+            language: 'Apr',
+            value: 13,
+          },
+          {
+            language: 'May',
+            value: 8,
+          }
+        ];
+
+        const barsvg = d3.select('#barChartSvg');
+
+        const barmargin = 35;
+        const barwidth = 550 - 2 * barmargin;
+        const barheight = 360 - 2 * barmargin;
+
+        const chart = barsvg.append('g')
+          .attr('transform', `translate(${barmargin}, ${barmargin})`);
+
+        const barxScale = d3.scaleBand()
+          .range([0, barwidth])
+          .domain(sample.map((s) => s.language))
+          .padding(0.4)
+        
+        const baryScale = d3.scaleLinear()
+          .range([barheight, 0])
+          .domain([0, 50]);
+
+        const makeYLines = () => d3.axisLeft()
+          .scale(baryScale)
+
+        chart.append('g')
+          .attr('transform', `translate(0, ${barheight})`)
+          .call(d3.axisBottom(barxScale));
+
+        chart.append('g')
+          .call(d3.axisLeft(baryScale));
+
+        chart.append('g')
+          .attr('class', 'grid')
+          .call(makeYLines()
+            .tickSize(-barwidth, 0, 0)
+            .tickFormat('')
+          )
+
+        const barGroups = chart.selectAll()
+          .data(sample)
+          .enter()
+          .append('g')
+
+        barGroups
+          .append('rect')
+          .attr('class', 'bar')
+          .attr('x', (g) => barxScale(g.language))
+          .attr('y', (g) => baryScale(g.value))
+          .attr('height', (g) => barheight - baryScale(g.value))
+          .attr('width', barxScale.bandwidth())
+
+        barGroups 
+          .append('text')
+          .attr('class', 'value')
+          .attr('x', (a) => barxScale(a.language) + barxScale.bandwidth() / 2)
+          .attr('y', (a) => baryScale(a.value) + 30)
+          .attr('text-anchor', 'middle')
+          .text((a) => `${a.value}`)
+        
+          barsvg
+          .append('text')
+          .attr('class', 'label')
+          .attr('x', -(barheight / 2) - barmargin)
+          .attr('y', barmargin / 2.4)
+          .attr('transform', 'rotate(-90)')
+          .attr('text-anchor', 'middle')
+          .text('Sales')
+
+          barsvg.append('text')
+          .attr('class', 'label')
+          .attr('x', barwidth / 2 + barmargin)
+          .attr('y', barheight + barmargin * 1.7)
+          .attr('text-anchor', 'middle')
+          .text('Vehicles')
+
+          barsvg.append('text')
+          .attr('class', 'title')
+          .attr('x', barwidth / 2 + barmargin)
+          .attr('y', 40)
+          .attr('text-anchor', 'middle')
+          .text('Monthly Average Sales')
+
+
+
+      //Pie Chart
+        // set the dimensions and margins of the graph
+        var width = 450
+            height = 350
+            margin = 40
+
+        // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+        var radius = Math.min(width, height) / 2 - margin
+
+        // append the svg object to the div called 'my_dataviz'
+        var piesvg = d3.select("#pieChartSvg")
+            .attr("width", width)
+            .attr("height", height)
+          .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+        // create 2 data_set
+        var data1 = {"Motorcycles": 58, "Classic Cars": 159, "Vintage Cars":102, "Trucks and Buses":49}
+
+        // set the color scale
+        var color = d3.scaleOrdinal()
+          .domain(["a", "b", "c", "d"])
+          .range(d3.schemeDark2);
+
+          // shape helper to build arcs:
+        var arcGenerator = d3.arc()
+          .innerRadius(0)
+          .outerRadius(radius)
+
+        // A function that create / update the plot for a given variable:
+        function update(data) {
+
+          // Compute the position of each group on the pie:
+          var pie = d3.pie()
+            .value(function(d) {return d.value; })
+            .sort(function(a, b) { console.log(a) ; return d3.ascending(a.key, b.key);} ) // This make sure that group order remains the same in the pie chart
+          var data_ready = pie(d3.entries(data))
+
+          // map to data
+          var u = piesvg.selectAll("path")
+            .data(data_ready)
+
+          // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+          u
+            .enter()
+            .append('path')
+            .merge(u)
+            .transition()
+            .duration(1000)
+            .attr('d', d3.arc()
+              .innerRadius(0)
+              .outerRadius(radius)
+            )
+            .attr('fill', function(d){ return(color(d.data.key)) })
+            .attr("stroke", "white")
+            .style("stroke-width", "2px")
+            .style("opacity", 1)
+
+          u.enter()
+            .append('text')
+            .text(function(d){ return d.data.key +" - "+ d.data.value})
+            .attr("transform", function(d) { return "translate(" + arcGenerator.centroid(d) + ")";  })
+            .style("text-anchor", "middle")
+            .style("font-size", 10)
+
+        }
+        // Initialize the plot with the first dataset
+        update(data1)    
+
+
+      //Doughnut Chart
+      // // set the dimensions and margins of the graph
+      // var width = 450
+      //     height = 400
+      //     margin = 40
+
+      // // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+      // var radius = Math.min(width, height) / 2 - margin
+
+      // // append the svg object to the div called 'my_dataviz'
+      // var donughnutsvg = d3.select("#doughnutChartSvg")
+      //     .attr("width", width)
+      //     .attr("height", height)
+      //   .append("g")
+      //     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+      // // Create dummy data
+      // var data = {"Motorcycles": 58, "Classic Cars": 159, "Vintage Cars":102, "Trucks and Buses":49}
+
+      // // set the color scale
+      // var color = d3.scaleOrdinal()
+      //   .domain(["a", "b", "c", "d"])
+      //   .range(d3.schemeDark2);
+
+      // // Compute the position of each group on the pie:
+      // var pie = d3.pie()
+      //   .sort(null) // Do not sort group by size
+      //   .value(function(d) {return d.value; })
+      // var data_ready = pie(d3.entries(data))
+
+      // // The arc generator
+      // var arc = d3.arc()
+      //   .innerRadius(radius * 0.5)         // This is the size of the donut hole
+      //   .outerRadius(radius * 0.8)
+
+      // // Another arc that won't be drawn. Just for labels positioning
+      // var outerArc = d3.arc()
+      //   .innerRadius(radius * 0.9)
+      //   .outerRadius(radius * 0.9)
+
+      // // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+      // donughnutsvg
+      //   .selectAll('allSlices')
+      //   .data(data_ready)
+      //   .enter()
+      //   .append('path')
+      //   .attr('d', arc)
+      //   .attr('fill', function(d){ return(color(d.data.key)) })
+      //   .attr("stroke", "white")
+      //   .style("stroke-width", "2px")
+      //   .style("opacity", 0.7)
+
+      // // Add the polylines between chart and labels:
+      // donughnutsvg
+      //   .selectAll('allPolylines')
+      //   .data(data_ready)
+      //   .enter()
+      //   .append('polyline')
+      //     .attr("stroke", "black")
+      //     .style("fill", "none")
+      //     .attr("stroke-width", 1)
+      //     .attr('points', function(d) {
+      //       var posA = arc.centroid(d) // line insertion in the slice
+      //       var posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
+      //       var posC = outerArc.centroid(d); // Label position = almost the same as posB
+      //       var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
+      //       posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
+      //       return [posA, posB, posC]
+      //     })
+
+      // // Add the polylines between chart and labels:
+      // donughnutsvg
+      //   .selectAll('allLabels')
+      //   .data(data_ready)
+      //   .enter()
+      //   .append('text')
+      //     .text( function(d) { console.log(d.data.key) ; return d.data.key } )
+      //     .attr('transform', function(d) {
+      //         var pos = outerArc.centroid(d);
+      //         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+      //         pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+      //         return 'translate(' + pos + ')';
+      //     })
+      //     .style("font-size", 10)
+
+
+      //Scatter Chart
+      var data = [
+                  [2871, 30], [2765, 34], [3884, 41], [3746, 45], [5205, 49], [3479, 36],
+                  [2497, 29], [5512, 48], [2168, 22], [4708, 41], [3965, 37], [2333, 23]
+                ];
+      
+        var margin = {top: 0, right: 15, bottom: 160, left: 15}
+          , width = 960 - margin.left - margin.right
+          , height = 500 - margin.top - margin.bottom;
+        
+        var x = d3.scaleLinear()
+                  .domain([2000, d3.max(data, function(d) { return d[0]; })])
+                  .range([ 0, width ]);
+        
+        var y = d3.scaleLinear()
+                .domain([0, d3.max(data, function(d) { return d[1]; })])
+                .range([ height, 0 ]);
+    
+        var donughnutsvg = d3.select('#doughnutChartSvg')
+      .attr('width', width + margin.right + margin.left)
+      .attr('height', height + margin.top + margin.bottom)
+      .attr('class', 'chart')
+
+        var main = donughnutsvg.append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('class', 'main')   
+            
+        // draw the x axis
+        var xAxis = d3.axisBottom()
+      .scale(x)
+
+        main.append('g')
+      .attr('transform', 'translate(0,' + height + ')')
+      .attr('class', 'main axis date')
+      .call(xAxis);
+
+        // draw the y axis
+        var yAxis = d3.axisLeft()
+      .scale(y)
+
+        main.append('g')
+      .attr('transform', 'translate(0,0)')
+      .attr('class', 'main axis date')
+      .call(yAxis);
+
+        var g = main.append("svg:g"); 
+        
+        g.selectAll("scatter-dots")
+          .data(data)
+          .enter().append("svg:circle")
+              .attr("cx", function (d,i) { return x(d[0]); } )
+              .attr("cy", function (d) { return y(d[1]); } )
+              .attr("r", 8);
+  
+    </script>
+
+    <!-- jQuery library -->
+    <script src="assets/js/bootstrap/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="assets/js/bootstrap/bootstrap.min.js"></script>
+  </body>
+</html>

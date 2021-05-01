@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Charts</title>
+    <link
+      rel="stylesheet"
+      href="assets/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      type="text/javascript"
+      src="assets/js/googlechart/loader.js"
+    ></script>
+    <script type="text/javascript">
+      google.charts.load("current", { packages: ["corechart", "scatter"] });
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <a class="navbar-brand" href="#">Charts Comparision</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">High Chart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="googlechart.html">Google Chart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="chartjs.html">Chart JS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="amchart.html">AM Chart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="d3chart.html">D3 Chart</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Comparison Chart
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="comparisonChart.html">Response Time</a>
+              <a class="dropdown-item" href="loadTestChart.html">Load Test</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container" style="margin-top: 30px">
+      <div class="row">
+        <div class="col-6">
+          <h3>Line Chart</h3>
+          <figure class="googlecharts-figure">
+            <div id="line-chart-container" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+          </figure>
+        </div>
+        <div class="col-6">
+          <h3>Bar Chart</h3>
+          <figure class="googlecharts-figure">
+            <div id="bar-chart-container" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+          </figure>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <h3>Pie Chart</h3>
+          <figure class="googlecharts-figure">
+            <div id="pie-chart-container" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+          </figure>
+        </div>
+        <div class="col-6">
+          <h3>Scatter Chart</h3>
+          <figure class="googlecharts-figure">
+            <div id="donught-chart-container" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function drawLineChart() {
+        // Define the chart to be drawn.
+        var data = new google.visualization.DataTable();
+        data.addColumn("string", "Month");
+        data.addColumn("number", "MotorCycles");
+        data.addColumn("number", "Classic Cars");
+        data.addRows([
+          ["1/20/2005",4514.92,733.11],["2/17/2005",8254.8,3207.12],["3/9/2005",2416.56,2434.56],["5/1/2005",4140.23,7516.08],["5/31/2005",12001,5288.01],["1/31/2005",4046.25,2225.5],["2/23/2005",4846.7,5833.8],["3/17/2005",3370.56,5887.35],["4/1/2005",9661.44,3664.1],["5/6/2005",2764.88,3834.38],["1/20/2005",2297.05,1822.17],["2/17/2005",6231.54,11886.6],["3/9/2005",1735.3,9218.16],["5/1/2005",4427.73,3877.06],["5/31/2005",5894.94,3867.08],["1/6/2005",2817.87,5951.44],["2/3/2005",3420,8648.64],["3/3/2005",2575.04,3447.78],["5/17/2005",1961.28,1142.41],["1/23/2005",3560.64,1172.6],["2/17/2005",3823.64,6981],["3/17/2005",2280.96,3064.6],["5/5/2005",8677.8,2202.48],["1/26/2005",5862,2851.84],["2/17/2005",4071.85,4609.64],["5/5/2005",8236.75,5079.96],["1/6/2005",3288.82,1879.92],["2/8/2005",3987.2,4846],["3/3/2005",1809.5,4197.1],["5/17/2005",1092.2,4597.65],["1/26/2005",5941.5,5287.7],["2/17/2005",3241.9,3550.05],["3/23/2005",6109.29,3595.62],["5/5/2005",3387.78,2443.29],["1/6/2005",2775.08,3988.6],["2/9/2005",1627.92,5168.4],["3/3/2005",2529.36,2803.2],["5/17/2005",3065.78,2632.89],["1/6/2005",4068.7,2046],["2/9/2005",5182,2279.55],["3/3/2005",5243.79,2150.55],["4/14/2005",9048.16,6576.5],["5/17/2005",3832.64,6353.27],["1/7/2005",2611.8,4175.6],["2/9/2005",5895.05,4992.61],["3/4/2005",3375.72,4764.6],["4/15/2005",8374.69,2317.44],["5/17/2005",4464.24,3298.4],["1/12/2005",2758.7,1826.96],["2/10/2005",1449.76,1206.9],["4/22/2005",7048.14,3425.18],["5/17/2005",5202.94,4701.88],["1/6/2005",3686.54,2204.1],["2/9/2005",2100.56,5189.4],["3/3/2005",3881.78,4984.32],["4/14/2005",4509.12,5406.66],["5/17/2005",3273.27,3491.18],["1/10/2005",4207.84,2118.54],["2/9/2005",4352.76,null],["3/4/2005",1463.7,null],["4/15/2005",7169.28,null],["5/17/2005",4594.76,null],["1/23/2005",2602.25,null],["2/17/2005",2200,null],["5/3/2005",6712.93,null],["5/31/2005",5318.04,null],["1/10/2005",6144.6,null],["2/10/2005",5127.2,null],["4/22/2005",6386.16,null],["5/17/2005",7695.6,null],["1/10/2005",6275.72,null],["1/20/2005",1534.95,null],["2/9/2005",7264.53,null],["2/22/2005",6869.05,null],["3/15/2005",3353.02,null],["4/14/2005",8289.05,null],["5/3/2005",11887.8,null],["5/17/2005",5926.9,null],["5/31/2005",3793.16,null],["1/6/2005",2773.8,null],["2/10/2005",2464,null],["3/4/2005",5491.6,null],["1/6/2005",4142.64,null],["2/10/2005",4149.07,null],["3/4/2005",7397,null],["1/12/2005",4808.38,null],["2/10/2005",2266.56,null],["4/15/2005",10468.9,null],["5/17/2005",5589.14,null],["1/26/2005",7031.52,null],["2/22/2005",5340.9,null],["3/15/2005",6376.58,null],["5/5/2005",6896.75,null],["1/6/2005",1629.04,null],["2/10/2005",3289.86,null],["3/4/2005",6862.94,null],["1/12/2005",3751,null],["2/16/2005",4536,null],["4/22/2005",4421.34,null],["5/29/2005",2078.28,null],["1/12/2005",1267.77,null],["2/16/2005",3441.82,null],["4/22/2005",1987.18,null],["5/29/2005",3880.2,null],["1/23/2005",2431.75,null],["2/22/2005",2018.72,null],["3/15/2005",1558.99,null],["5/3/2005",1104.6,null],["5/31/2005",2575.1,null],["1/12/2005",1463,null],["2/10/2005",3970.56,null],["4/22/2005",2576,null],["5/29/2005",2233.69,null],["1/19/2005",4107.2,null],["2/16/2005",1350,null],["4/22/2005",7182,null],["5/29/2005",3933.93,null],["1/23/2005",5545.8,null],["2/22/2005",6089.6,null],["3/15/2005",1789.4,null],["5/3/2005",1082.1,null],["5/31/2005",1030.44,null],["1/19/2005",4223.13,null],["2/16/2005",1596.76,null],["4/22/2005",5820.35,null],["5/29/2005",5296.5,null],["1/12/2005",5018.4,null],["2/10/2005",5856.85,null],["3/4/2005",4894.73,null],["4/14/2005",2094.32,null],["5/17/2005",640.05,null],["1/19/2005",3662.52,null],["2/16/2005",null,null],["4/22/2005",null,null],["5/29/2005",null,null],["1/6/2005",null,null],["2/10/2005",null,null],["3/4/2005",null,null],["5/17/2005",null,null],["1/19/2005",null,null],["2/16/2005",null,null],["4/22/2005",null,null],["5/29/2005",null,null],["1/6/2005",null,null],["2/10/2005",null,null],["3/4/2005",null,null],["4/14/2005",null,null],["5/17/2005",null,null],["1/23/2005",null,null],["2/22/2005",null,null],["3/15/2005",null,null],["5/3/2005",null,null],["1/6/2005",null,null],["2/10/2005",null,null],["3/4/2005",null,null],["1/23/2005",null,null],["2/17/2005",null,null],["5/1/2005",null,null],["5/31/2005",null,null]
+        ]);
+
+        // Set chart options
+        var options = {
+          title: "Sales Report on 2005",
+          hAxis: {
+            title: "Month",
+          },
+          vAxis: {
+            title: "Amount",
+          },
+          width: 550,
+          height: 400,
+        };
+
+        // Instantiate and draw the chart.
+        var chart = new google.visualization.LineChart(
+          document.getElementById("line-chart-container")
+        );
+        chart.draw(data, options);
+      }
+      google.charts.setOnLoadCallback(drawLineChart);
+
+      // Bar Chart
+      function drawBarChart() {
+        // Define the chart to be drawn.
+        var data = google.visualization.arrayToDataTable([
+          ["Month", "Motorcycles", "Classic Cars"],
+          ["Jan", 11, 38],
+          ["Feb", 13, 38],
+          ["Mar", 13, 24],
+          ["Apr", 13, 18],
+          ["May", 8, 41],
+        ]);
+
+        var options = { title: "Monthly Average Sales",
+          series: {
+            0: { axis: 'Motorcycles' },
+            1: { axis: 'Classic Cars' }
+          },
+        };
+
+        // Instantiate and draw the chart.
+        var chart = new google.visualization.ColumnChart(
+          document.getElementById("bar-chart-container")
+        );
+        chart.draw(data, options);
+      }
+      google.charts.setOnLoadCallback(drawBarChart);
+
+      //Pie Chart
+      function drawPieChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Vehicle', 'Sales Count'],
+          ['Motorcycles',     58],
+          ['Classic Cars',      159],
+          ['Vintage Cars',  102],
+          ['Trucks and Buses', 49]
+        ]);
+
+        var options = {
+          title: 'Sales by Vehicles 2005'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('pie-chart-container'));
+
+        chart.draw(data, options);
+      }
+      google.charts.setOnLoadCallback(drawPieChart);
+
+      //Doughnut Chart
+      // function drawDonughtChart() {
+
+      //   var data = google.visualization.arrayToDataTable([
+      //     ['Vehicle', 'Sales Count'],
+      //     ['Motorcycles',     58],
+      //     ['Classic Cars',      159],
+      //     ['Vintage Cars',  102],
+      //     ['Trucks and Buses', 49]
+      //   ]);
+
+      //   var options = {
+      //     title: 'Sales by Vehicles 2005',
+      //     pieHole: 0.4,
+      //   };
+
+      //   var chart = new google.visualization.PieChart(document.getElementById('donught-chart-container'));
+
+      //   chart.draw(data, options);
+      // }
+      // google.charts.setOnLoadCallback(drawDonughtChart);
+
+      function drawScatterChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Sale');
+        data.addColumn('number', 'Quantity');
+
+        data.addRows([
+              [2871, 30], [2765, 34], [3884, 41], [3746, 45], [5205, 49], [3479, 36],
+              [2497, 29], [5512, 48], [2168, 22], [4708, 41], [3965, 37], [2333, 23]
+        ]);
+
+        var options = {
+          chart: {
+            title: '',
+          },
+          hAxis: {title: 'Sale'},
+          vAxis: {title: 'Quantity'}
+        };
+
+        var chart = new google.charts.Scatter(document.getElementById('donught-chart-container'));
+        chart.draw(data, google.charts.Scatter.convertOptions(options));
+      }
+      google.charts.setOnLoadCallback(drawScatterChart);
+      
+    </script>
+
+    <!-- jQuery library -->
+    <script src="assets/js/bootstrap/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="assets/js/bootstrap/bootstrap.min.js"></script>
+  </body>
+</html>

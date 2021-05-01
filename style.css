@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Verdana, Tahoma, sans-serif;
+    background-color: #c8c8c8;
+}
+
+.highcharts-figure, .googlecharts-figure, .chartjs-figure, .amcharts-figure, .d3charts-figure {
+    background-color: #fff;
+    box-shadow: 0 3px 4px #000;
+}
+
+.line {
+    fill: none;
+    stroke: #ffab00;
+    stroke-width: 3;
+}
+
+/* Style the dots by assigning a fill and stroke */
+.dot {
+    fill: #ffab00;
+    stroke: #fff;
+}

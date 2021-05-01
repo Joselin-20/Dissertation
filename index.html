@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Charts</title>
+    <link
+      rel="stylesheet"
+      href="assets/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="assets/js/highcharts/highcharts.js"></script>
+    <script src="assets/js/highcharts/series-label.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <a class="navbar-brand" href="#">Charts Comparision</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapsibleNavbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">High Chart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="googlechart.html">Google Chart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="chartjs.html">Chart JS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="amchart.html">AM Chart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="d3chart.html">D3 Chart</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Comparison Chart
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="comparisonChart.html">Response Time</a>
+              <a class="dropdown-item" href="loadTestChart.html">Load Test</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container" style="margin-top: 30px">
+      <div class="row">
+        <div class="col-6">
+          <h3>Line Chart</h3>
+          <figure class="highcharts-figure">
+            <div id="line-chart-container"></div>
+          </figure>
+        </div>
+        <div class="col-6">
+          <h3>Bar Chart</h3>
+          <figure class="highcharts-figure">
+            <div id="bar-chart-container"></div>
+          </figure>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-6">
+          <h3>Pie Chart</h3>
+          <figure class="highcharts-figure">
+            <div id="pie-chart-container"></div>
+          </figure>
+        </div>
+        <div class="col-6">
+          <h3>Scatter Chart</h3>
+          <figure class="highcharts-figure">
+            <div id="doughnut-chart-container"></div>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      // Line Chart
+      Highcharts.chart("line-chart-container", {
+        title: {
+          text: "Sales Report On 2005",
+        },
+
+        yAxis: {
+          title: {
+            text: "Amount",
+          },
+        },
+
+        series: [
+          {
+            name: "MotorCycles",
+            data: [733.11,3207.12,2434.56,7516.08,5288.01,2225.5,5833.8,5887.35,3664.1,3834.38,1822.17,11886.6,9218.16,3877.06,3867.08,5951.44,8648.64,3447.78,1142.41,1172.6,6981,3064.6,2202.48,2851.84,4609.64,5079.96,1879.92,4846,4197.1,4597.65,5287.7,3550.05,3595.62,2443.29,3988.6,5168.4,2803.2,2632.89,2046,2279.55,2150.55,6576.5,6353.27,4175.6,4992.61,4764.6,2317.44,3298.4,1826.96,1206.9,3425.18,4701.88,2204.1,5189.4,4984.32,5406.66,3491.18,2118.54],
+          },
+          {
+            name: "Classic Cars",
+            data: [4514.92,8254.8,2416.56,4140.23,12001,4046.25,4846.7,3370.56,9661.44,2764.88,2297.05,6231.54,1735.3,4427.73,5894.94,2817.87,3420,2575.04,1961.28,3560.64,3823.64,2280.96,8677.8,5862,4071.85,8236.75,3288.82,3987.2,1809.5,1092.2,5941.5,3241.9,6109.29,3387.78,2775.08,1627.92,2529.36,3065.78,4068.7,5182,5243.79,9048.16,3832.64,2611.8,5895.05,3375.72,8374.69,4464.24,2758.7,1449.76,7048.14,5202.94,3686.54,2100.56,3881.78,4509.12,3273.27,4207.84,4352.76,1463.7,7169.28,4594.76,2602.25,2200,6712.93,5318.04,6144.6,5127.2,6386.16,7695.6,6275.72,1534.95,7264.53,6869.05,3353.02,8289.05,11887.8,5926.9,3793.16,2773.8,2464,5491.6,4142.64,4149.07,7397,4808.38,2266.56,10468.9,5589.14,7031.52,5340.9,6376.58,6896.75,1629.04,3289.86,6862.94,3751,4536,4421.34,2078.28,1267.77,3441.82,1987.18,3880.2,2431.75,2018.72,1558.99,1104.6,2575.1,1463,3970.56,2576,2233.69,4107.2,1350,7182,3933.93,5545.8,6089.6,1789.4,1082.1,1030.44,4223.13,1596.76,5820.35,5296.5,5018.4,5856.85,4894.73,2094.32,640.05,3662.52,3478.64,1057.29,3385.9,2447.76,1910.84,2430.64,2896.3,1991.6,3953.18,3729.39,2617.16,2931.98,1757.91,6763.05,11739.7,9240,1408.96,1972.11,5207.75,4253.2,5154.41,4894.17,2472.6,4301.34,1864.56,3576.8,3722.32],
+          },
+        ],
+
+        responsive: {
+          rules: [
+            {
+              condition: {
+                maxWidth: 500,
+              },
+              chartOptions: {
+                legend: {
+                  layout: "horizontal",
+                  align: "center",
+                  verticalAlign: "bottom",
+                },
+              },
+            },
+          ],
+        },
+      });
+
+      // Bar Chart
+      Highcharts.chart("bar-chart-container", {
+        chart: {
+          type: "column",
+        },
+        title: {
+          text: "Monthly Average Sales",
+        },
+        xAxis: {
+          categories: ["Jan", "Feb", "Mar", "Apr", "May"],
+          crosshair: true,
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: "Sales",
+          },
+        },
+        tooltip: {
+          headerFormat:
+            '<span style="font-size:10px">{point.key}</span><table>',
+          pointFormat:
+            '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+          footerFormat: "</table>",
+          shared: true,
+          useHTML: true,
+        },
+        plotOptions: {
+          column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+          },
+        },
+        series: [
+          {
+            name: "Motorcycles",
+            data: [ 11, 13, 13, 13, 8 ],
+          },
+          {
+            name: "Classic Cars",
+            data: [ 38, 38, 24, 18, 41 ],
+          }
+        ],
+      });
+
+      //Doughnut Chart
+      var colors = Highcharts.getOptions().colors,
+        categories = [
+          "Motorcycles",
+          "Classic Cars",
+          "Vintage Cars",
+          "Trucks and Buses"
+        ],
+        data = [
+          {
+            y: 58,
+            color: colors[2],
+            drilldown: {
+              name: "Motorcycle",
+              categories: ["V1"],
+              data: [58],
+            },
+          },
+          {
+            y: 159,
+            color: colors[1],
+            drilldown: {
+              name: "Classic Cars",
+              categories: ["V1.1"],
+              data: [159],
+            },
+          },
+          {
+            y: 102,
+            color: colors[0],
+            drilldown: {
+              name: "Vintage Cars",
+              categories: [
+                "V11"
+              ],
+              data: [102],
+            },
+          },
+          {
+            y: 49,
+            color: colors[3],
+            drilldown: {
+              name: "Trucks and Buses",
+              categories: ["V12"],
+              data: [49],
+            },
+          }
+        ],
+        browserData = [],
+        versionsData = [],
+        i,
+        j,
+        dataLen = data.length,
+        drillDataLen,
+        brightness;
+
+      // Build the data arrays
+      for (i = 0; i < dataLen; i += 1) {
+        // add browser data
+        browserData.push({
+          name: categories[i],
+          y: data[i].y,
+          color: data[i].color,
+        });
+
+        // add version data
+        drillDataLen = data[i].drilldown.data.length;
+        for (j = 0; j < drillDataLen; j += 1) {
+          brightness = 0.2 - j / drillDataLen / 5;
+          versionsData.push({
+            name: data[i].drilldown.categories[j],
+            y: data[i].drilldown.data[j],
+            color: Highcharts.color(data[i].color).brighten(brightness).get(),
+          });
+        }
+      }
+
+      // Create the chart
+      // Highcharts.chart("doughnut-chart-container", {
+      //   chart: {
+      //     type: "pie",
+      //   },
+      //   title: {
+      //     text: "Sales by Vehicle 2005",
+      //   },
+      //   plotOptions: {
+      //     pie: {
+      //       shadow: false,
+      //       center: ["50%", "50%"],
+      //     },
+      //   },
+      //   tooltip: {
+      //     valueSuffix: "%",
+      //   },
+      //   series: [
+      //     {
+      //       name: "Vehicle",
+      //       data: browserData,
+      //       size: "60%",
+      //     },
+      //     {
+      //       name: "Versions",
+      //       data: versionsData,
+      //       size: "80%",
+      //       innerSize: "60%",
+      //       dataLabels: {
+      //         formatter: function () {
+      //           // display only if larger than 1
+      //           return this.y > 1
+      //             ? this.y + "%"
+      //             : null;
+      //         },
+      //       },
+      //       id: "versions",
+      //     },
+      //   ],
+      //   responsive: {
+      //     rules: [
+      //       {
+      //         condition: {
+      //           maxWidth: 400,
+      //         },
+      //         chartOptions: {
+      //           series: [
+      //             {},
+      //             {
+      //               id: "versions",
+      //               dataLabels: {
+      //                 enabled: false,
+      //               },
+      //             },
+      //           ],
+      //         },
+      //       },
+      //     ],
+      //   },
+      // });
+
+      Highcharts.chart('doughnut-chart-container', {
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Sales Report On 2005'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Sales'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: 'Quantity'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: Highcharts.defaultOptions.chart.backgroundColor,
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+            }
+        },
+        series: [{
+            name: 'Sale vs Quantity',
+            color: 'rgba(223, 83, 83, .5)',
+            data: [
+              [2871, 30], [2765, 34], [3884, 41], [3746, 45], [5205, 49], [3479, 36],
+              [2497, 29], [5512, 48], [2168, 22], [4708, 41], [3965, 37], [2333, 23]
+            ]
+
+        }, 
+        // {
+        //     name: 'Classic Cars',
+        //     color: 'rgba(119, 152, 191, .5)',
+        //     data: [[174.0, 65.6], [175.3, 71.8], [193.5, 80.7], [186.5, 72.6], [187.2, 78.8],
+        //         [181.5, 74.8], [184.0, 86.4], [184.5, 78.4], [175.0, 62.0], [184.0, 81.6],
+        //         [180.0, 76.6], [177.8, 83.6], [192.0, 90.0], [176.0, 74.6], [174.0, 71.0],
+        //         [184.0, 79.6], [192.7, 93.8], [171.5, 70.0], [173.0, 72.4], [176.0, 85.9],
+        //         [176.0, 78.8], [180.5, 77.8], [172.7, 66.2], [176.0, 86.4], [173.5, 81.8],
+        //         [178.0, 89.6], [180.3, 82.8], [180.3, 76.4], [164.5, 63.2], [173.0, 60.9],
+        //         [183.5, 74.8], [175.5, 70.0], [188.0, 72.4], [189.2, 84.1], [172.8, 69.1]]
+        // }
+      ]
+    });
+
+
+      //Pie chart
+      Highcharts.chart("pie-chart-container", {
+        chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: "pie",
+        },
+        title: {
+          text: "Sales by Vehicle 2005 ",
+        },
+        tooltip: {
+          pointFormat: "<b>{point.percentage:.1f}%</b>",
+        },
+        accessibility: {
+          point: {
+            valueSuffix: "%",
+          },
+        },
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: "pointer",
+            dataLabels: {
+              enabled: false,
+            },
+            showInLegend: true,
+          },
+        },
+        series: [
+          {
+            colorByPoint: true,
+            data: [
+              {
+                name: "Motorcycles",
+                y: 58,
+              },
+              {
+                name: "Classic Cars",
+                y: 159,
+              },
+              {
+                name: "Vintage Cars",
+                y: 102,
+              },
+              {
+                name: "Trucks and Buses",
+                y: 49,
+              }
+            ],
+          },
+        ],
+      });
+    </script>
+
+    <!-- jQuery library -->
+    <script src="assets/js/bootstrap/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="assets/js/bootstrap/bootstrap.min.js"></script>
+  </body>
+</html>
